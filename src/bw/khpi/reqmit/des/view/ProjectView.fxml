@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="155.0" prefWidth="266.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bw.khpi.reqmit.des.view.ProjectViewController">
+   <center>
+      <AnchorPane prefHeight="285.0" prefWidth="264.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="nameField" layoutX="93.0" layoutY="65.0" />
+            <Button layoutX="136.0" layoutY="108.0" mnemonicParsing="false" onAction="#createOrUpdateActionPerformed" text="Create or update" />
+            <Label layoutX="24.0" layoutY="69.0" text="Name" />
+            <Label layoutX="23.0" layoutY="21.0" text="Project">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
