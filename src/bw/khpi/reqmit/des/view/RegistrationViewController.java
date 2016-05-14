@@ -1,15 +1,12 @@
 package bw.khpi.reqmit.des.view;
 
-import java.awt.event.ActionEvent;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
+import bw.khpi.reqmit.des.Main;
+import bw.khpi.reqmit.des.model.User;
+import bw.khpi.reqmit.des.service.ServerRepository;
+import bw.khpi.reqmit.des.service.ServerRepositoryImpl;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 
 public class RegistrationViewController {
@@ -31,18 +28,35 @@ public class RegistrationViewController {
 
     @FXML
     private Button cancelButton;
+
+	private ServerRepository serverRepository = new ServerRepositoryImpl();
+	
+    private Main mainApp;
     
-    @FXML
+    public void setMainApp(Main mainApp) {
+		this.mainApp = mainApp;
+	}
+	@FXML
     private void initialize() {
     	
     }
     @FXML
     private void createActionPerformed(ActionEvent event){
+    	if(!"".equals(usernameField.getText())
+    			&& !"".equals(passwordField.getText())
+    			&& passwordField.getText().equals(confirmPasswordField.getText())){
+        	User user = new User();
+        	user.setUsername(usernameField.getText());
+        	user.setPassword(passwordField.getText());
+        	
+        	serverRepository.saveUser(user);
+        	mainApp.showMainView();
+    	}
     	
     }
     
     @FXML
     private void cancelActionPerformed(ActionEvent event){
-    	
+    	mainApp.showLoginView();
     }
 }

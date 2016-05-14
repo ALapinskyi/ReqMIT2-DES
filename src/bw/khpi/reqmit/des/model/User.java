@@ -10,18 +10,18 @@ public class User {
 	
 	private Integer id;
 	private String username;
-	private String pasword;
-	private String email;
+	private String password;
+	private String key;
 	
 	public User(){
 		
 	}
 	
-	public User(String username, String pasword, String email) {
+	public User(String username, String password, String key) {
 		super();
 		this.username = username;
-		this.pasword = pasword;
-		this.email = email;
+		this.password = password;
+		this.key = key;
 	}
 	public Integer getId() {
 		return id;
@@ -35,22 +35,30 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getPasword() {
-		return pasword;
+	public String getPassword() {
+		return password;
 	}
-	public void setPasword(String pasword) {
-		this.pasword = pasword;
+	public void setPassword(String pasword) {
+		this.password = pasword;
 	}
-	public String getEmail() {
-		return email;
+	public String getKet() {
+		return key;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setKey(String key) {
+		this.key = key;
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", pasword=" + pasword + ", email=" + email + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", key=" + key + "]";
+	}
+	
+	public boolean compareLoginData(User user){
+		if(this.username.equals(user.getUsername()) && this.password.equals(user.getPassword())){
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	
