@@ -9,29 +9,33 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Requirement {
 	
 	private Integer id;
-	private Integer project_id;
+	private String project_id;
 	private String name;
-	private String description;
 	
 	public Requirement() {
 	}
 	
-	public Requirement(Integer id, Integer project_id, String name, String description) {
+	public Requirement(Integer id, String project_id, String name) {
 		this.id = id;
 		this.project_id = project_id;
 		this.name = name;
-		this.description = description;
 	}
+	
+	public Requirement(String project_id, String name) {
+		this.project_id = project_id;
+		this.name = name;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getProject_id() {
+	public String getProject_id() {
 		return project_id;
 	}
-	public void setProject_id(Integer project_id) {
+	public void setProject_id(String project_id) {
 		this.project_id = project_id;
 	}
 	public String getName() {
@@ -40,13 +44,6 @@ public class Requirement {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
 	@Override
 	public String toString(){
 		return name;

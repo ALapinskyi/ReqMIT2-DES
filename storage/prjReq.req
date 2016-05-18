@@ -1,46 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <projects>
     <project>
-        <id>1</id>
-        <name>qwe</name>
-        <requirements>
-            <id>1</id>
-            <project_id>1</project_id>
-            <name>asd</name>
-            <description>xdxzchty</description>
-        </requirements>
-        <requirements>
-            <id>1</id>
-            <project_id>1</project_id>
-            <name>scxzc</name>
-            <description>qweqweqeq</description>
-        </requirements>
+        <id>244e5168-b44d-402d-94bf-25385419eb2e</id>
+        <name>demchuk</name>
     </project>
     <project>
-        <id>2</id>
-        <name>ячс</name>
-        <requirements>
-            <id>1</id>
-            <project_id>2</project_id>
-            <name>zxc</name>
-            <description>asdehrthrth</description>
-        </requirements>
-    </project>
-    <project>
-        <name>чясяч</name>
-    </project>
-    <project>
-        <name>куеуке</name>
-    </project>
-    <project>
-        <name>счм</name>
-        <requirements>
-            <id>1</id>
-            <name>123</name>
-            <description>xzc</description>
-        </requirements>
-    </project>
-    <project>
-        <name>ertert</name>
+        <id>5b8a5cf5-222c-4290-838f-4865b59a0894</id>
+        <name>vadim</name>
     </project>
 </projects>

@@ -2,8 +2,8 @@ package bw.khpi.reqmit.des.view;
 
 import bw.khpi.reqmit.des.Main;
 import bw.khpi.reqmit.des.model.User;
-import bw.khpi.reqmit.des.service.ServerRepository;
-import bw.khpi.reqmit.des.service.ServerRepositoryImpl;
+import bw.khpi.reqmit.des.service.ServerService;
+import bw.khpi.reqmit.des.service.ServerServiceImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,7 +31,7 @@ public class LoginViewController {
 	@FXML
 	private Hyperlink createLocalButton;
 
-	private ServerRepository serverRepository = new ServerRepositoryImpl();
+	private ServerService serverService = new ServerServiceImpl();
 	
 	private Main mainApp;
 	
@@ -53,9 +53,9 @@ public class LoginViewController {
 		user.setUsername(usernameField.getText());
 		user.setPassword(passwordField.getText());
 
-		User authUser = serverRepository.getAuthentication(user);
+		User authUser = serverService.getAuthentication(user);
 
-		if (authUser != null) {
+		if (authUser != null && authUser.getToken() != null) {
 			mainApp.setUser(authUser);
 			mainApp.showMainView();
 		}

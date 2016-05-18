@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <user>
-    <email>asd@qwe.rt</email>
-    <pasword>1234</pasword>
-    <username>petr</username>
+    <username>test</username>
+    <password>test</password>
+    <token>c8097a57-9565-4a84-9385-60ce2c0c635c</token>
 </user>

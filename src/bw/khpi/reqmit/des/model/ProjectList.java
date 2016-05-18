@@ -1,5 +1,6 @@
 package bw.khpi.reqmit.des.model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,7 +14,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ProjectList extends LinkedList<Event> {
 
     @XmlElement(name = "project")
-	private List<Project> project = new LinkedList<>();
+	private List<Project> project = new ArrayList<>();
+    
+    public ProjectList() {
+	}
+
+	public ProjectList(ArrayList<Project> project) {
+		super();
+		this.project = project;
+	}
 
 	public List<Project> getProjects() {
 		return project;

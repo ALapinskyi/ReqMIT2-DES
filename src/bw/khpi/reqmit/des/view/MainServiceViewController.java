@@ -4,8 +4,10 @@ import bw.khpi.reqmit.des.Main;
 import bw.khpi.reqmit.des.model.Project;
 import bw.khpi.reqmit.des.model.ProjectList;
 import bw.khpi.reqmit.des.model.Requirement;
-import bw.khpi.reqmit.des.service.ServerRepository;
-import bw.khpi.reqmit.des.service.ServerRepositoryImpl;
+import bw.khpi.reqmit.des.service.ServerService;
+import bw.khpi.reqmit.des.service.ServerServiceImpl;
+import bw.khpi.reqmit.des.utils.ConnectUtils;
+import bw.khpi.reqmit.des.utils.JSONUtils;
 import bw.khpi.reqmit.des.utils.XMLUtils;
 import javafx.event.ActionEvent;
 
@@ -44,7 +46,7 @@ public class MainServiceViewController {
     @FXML
     private TableView filesTable;
 
-	private ServerRepository serverRepository = new ServerRepositoryImpl();
+	private ServerService serverRepository = new ServerServiceImpl();
 	
 	private Main mainApp;
     
@@ -82,10 +84,11 @@ public class MainServiceViewController {
     	TreeItem<Object> root = new TreeItem<Object>(new Project("Projects"));
     	root.setExpanded(true);
     	
-    	ProjectList list = XMLUtils.loadProjects();
+    	ProjectList list = serverRepository.listAllProjects();
     	for(Project p : list.getProjects()){
         	TreeItem<Object> item = new TreeItem<Object>(p);
         	root.getChildren().add(item);
+        	p.setRequirements(serverRepository.listAllRequirements());
         	for(Requirement r : p.getRequirements()){
             	TreeItem<Object> req = new TreeItem<Object>(r);
             	item.getChildren().add(req);
@@ -93,6 +96,8 @@ public class MainServiceViewController {
         	item.setExpanded(true);
     	}
     	projectTree.setRoot(root);
+    	
+    	XMLUtils.saveProjects(list);
     }
     
     

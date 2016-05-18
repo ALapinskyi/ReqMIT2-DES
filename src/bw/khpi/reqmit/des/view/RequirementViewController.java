@@ -4,6 +4,8 @@ import bw.khpi.reqmit.des.Main;
 import bw.khpi.reqmit.des.model.Project;
 import bw.khpi.reqmit.des.model.ProjectList;
 import bw.khpi.reqmit.des.model.Requirement;
+import bw.khpi.reqmit.des.service.ServerService;
+import bw.khpi.reqmit.des.service.ServerServiceImpl;
 import bw.khpi.reqmit.des.utils.XMLUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +31,8 @@ public class RequirementViewController {
     private Button createOrUpdateButton;
 
 	private Main mainApp;
+
+	private ServerService serverRepository = new ServerServiceImpl();
 	
 	private ProjectList projectList = XMLUtils.loadProjects();
     
@@ -39,7 +43,6 @@ public class RequirementViewController {
     
     @FXML
     private void initialize() {
-    	
     	ObservableList<Project> list = FXCollections.observableArrayList(projectList.getProjects());
     	projectCombobox.setPromptText("Select project");
     	projectCombobox.setItems(list);
@@ -47,8 +50,9 @@ public class RequirementViewController {
     @FXML
     private void createOrUpdateActionPerformed(ActionEvent event){
     	Project project = projectCombobox.getValue();
-    	project.getRequirements().add(new Requirement(1, project.getId(), nameField.getText(), descriptionArea.getText()));
-    	XMLUtils.saveProjects(projectList);
+    	serverRepository.saveRequirement(new Requirement(project.getId(), nameField.getText()));
+    	//project.getRequirements().add(new Requirement("1", project.getId(), nameField.getText(), descriptionArea.getText()));
+    	
     	mainApp.refreshMainService();
     }
     

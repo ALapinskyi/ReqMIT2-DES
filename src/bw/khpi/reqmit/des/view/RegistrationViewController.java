@@ -2,8 +2,8 @@ package bw.khpi.reqmit.des.view;
 
 import bw.khpi.reqmit.des.Main;
 import bw.khpi.reqmit.des.model.User;
-import bw.khpi.reqmit.des.service.ServerRepository;
-import bw.khpi.reqmit.des.service.ServerRepositoryImpl;
+import bw.khpi.reqmit.des.service.ServerService;
+import bw.khpi.reqmit.des.service.ServerServiceImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -29,7 +29,7 @@ public class RegistrationViewController {
     @FXML
     private Button cancelButton;
 
-	private ServerRepository serverRepository = new ServerRepositoryImpl();
+	private ServerService serverRepository = new ServerServiceImpl();
 	
     private Main mainApp;
     

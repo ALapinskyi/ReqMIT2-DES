@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bw.khpi.reqmit.des.view.MainServiceViewController">
    <center>
       <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <items>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
-                  <FlowPane prefHeight="23.0" prefWidth="296.0" BorderPane.alignment="CENTER" />
+                  <FlowPane prefHeight="23.0" prefWidth="296.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button fx:id="addProjectButton" mnemonicParsing="false" onAction="#addProjectAction" text="+" />
+                        <Button fx:id="removeProjectButton" mnemonicParsing="false" text="-" />
+                     </children></FlowPane>
                </top>
                <center>
-                  <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                  <TreeView fx:id="projectTree" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
@@ -24,7 +28,7 @@
                   <FlowPane prefHeight="25.0" prefWidth="296.0" BorderPane.alignment="CENTER" />
                </top>
                <center>
-                  <TableView prefHeight="304.0" prefWidth="296.0" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
+                  <TableView fx:id="filesTable" prefHeight="304.0" prefWidth="296.0" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
                     <columns>
                       <TableColumn prefWidth="146.0" text="File" />
                       <TableColumn prefWidth="140.0" text="EoM" />
@@ -44,17 +48,15 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem fx:id="logoutItem" mnemonicParsing="false" text="Logout" />
+              <MenuItem fx:id="exitItem" mnemonicParsing="false" text="Exit" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem fx:id="addProjectItem" mnemonicParsing="false" onAction="#addProjectAction" text="Add project" />
+              <MenuItem fx:id="addRequirementItem" mnemonicParsing="false" onAction="#addRequirementAction" text="Add requirement" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
             </items>
           </Menu>
         </menus>

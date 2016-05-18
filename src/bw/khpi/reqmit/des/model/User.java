@@ -11,17 +11,21 @@ public class User {
 	private Integer id;
 	private String username;
 	private String password;
-	private String key;
+	private String token;
 	
 	public User(){
 		
 	}
+	public User(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
 	
-	public User(String username, String password, String key) {
+	public User(String username, String password, String token) {
 		super();
 		this.username = username;
 		this.password = password;
-		this.key = key;
+		this.token = token;
 	}
 	public Integer getId() {
 		return id;
@@ -41,16 +45,16 @@ public class User {
 	public void setPassword(String pasword) {
 		this.password = pasword;
 	}
-	public String getKet() {
-		return key;
+	public String getToken() {
+		return token;
 	}
-	public void setKey(String key) {
-		this.key = key;
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", key=" + key + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", token=" + token + "]";
 	}
 	
 	public boolean compareLoginData(User user){

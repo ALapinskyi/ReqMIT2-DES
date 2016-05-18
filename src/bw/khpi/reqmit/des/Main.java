@@ -1,23 +1,29 @@
 package bw.khpi.reqmit.des;
 
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.imageio.ImageIO;
+
 import bw.khpi.reqmit.des.model.User;
+import bw.khpi.reqmit.des.service.Methods;
+import bw.khpi.reqmit.des.utils.ConnectUtils;
 import bw.khpi.reqmit.des.utils.XMLUtils;
 import bw.khpi.reqmit.des.view.LoginViewController;
 import bw.khpi.reqmit.des.view.MainServiceViewController;
 import bw.khpi.reqmit.des.view.ProjectViewController;
 import bw.khpi.reqmit.des.view.RegistrationViewController;
 import bw.khpi.reqmit.des.view.RequirementViewController;
-import javafx.application.*;
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.*;
-import javafx.scene.layout.*;
-import javafx.stage.*;
-
-import javax.imageio.ImageIO;
-import javax.xml.bind.JAXBException;
-
-import java.io.IOException;
-import java.net.URL;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 public class Main extends Application {
 
@@ -270,7 +276,7 @@ public class Main extends Application {
 		stageDialog.hide();
 	}
 
-	public static void main(String[] args) throws IOException, java.awt.AWTException {
+	public static void main(String[] args) throws IOException, java.awt.AWTException {		
 		launch(args);
 	}
 }

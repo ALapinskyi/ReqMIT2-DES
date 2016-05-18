@@ -54,7 +54,8 @@ public class XMLUtils {
 
 	public static boolean removeUser() {
 		File file = new File("storage/userData.req");
-		return file.delete();
+		//return file.delete();
+		return true;
 	}
 
 	public static void saveEvents(List<Event> events) {
