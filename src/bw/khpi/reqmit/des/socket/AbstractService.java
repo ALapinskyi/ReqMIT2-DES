@@ -15,8 +15,13 @@ public abstract class AbstractService{
 	
 	public void closeConnection(){
 		try{
-            in.close();
-            out.close();
+			if(in != null)
+				in.close();
+
+			if(out != null)
+				out.close();
+
+			if(requestSocket != null)
             requestSocket.close();
         }
         catch(IOException ioException){

@@ -91,7 +91,7 @@ public class ConnectUtils {
 		return response;
 	}
 
-	private static String getPostDataString(Map<String, String> params) throws UnsupportedEncodingException {
+	public static String getPostDataString(Map<String, String> params) throws UnsupportedEncodingException {
 		StringBuilder result = new StringBuilder();
 		boolean first = true;
 		for (Map.Entry<String, String> entry : params.entrySet()) {

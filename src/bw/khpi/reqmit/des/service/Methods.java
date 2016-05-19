@@ -24,4 +24,16 @@ public abstract class Methods {
     public static String getRequirementUrl(){
         return PROTOCOL + "://" + IP_PORT + FOLDER + "/requirements?";
     }
+
+    public static String getEventUrl(){
+        return PROTOCOL + "://" + IP_PORT + FOLDER + "/events?";
+    }
+
+    public static String getFileUrl(){
+        return PROTOCOL + "://" + IP_PORT + FOLDER + "/files?";
+    }
+
+    public static String getFileFindUrl(){
+        return PROTOCOL + "://" + IP_PORT + FOLDER + "/files/find?";
+    }
 }

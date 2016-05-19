@@ -5,16 +5,8 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import bw.khpi.reqmit.des.model.Project;
-import bw.khpi.reqmit.des.model.ProjectList;
-import bw.khpi.reqmit.des.model.Requirement;
-import bw.khpi.reqmit.des.model.User;
-import bw.khpi.reqmit.des.repository.ProjectRepository;
-import bw.khpi.reqmit.des.repository.ProjectRepositoryImpl;
-import bw.khpi.reqmit.des.repository.RequirementRepository;
-import bw.khpi.reqmit.des.repository.RequirementRepositoryImpl;
-import bw.khpi.reqmit.des.repository.UserRepository;
-import bw.khpi.reqmit.des.repository.UserRepositoryImpl;
+import bw.khpi.reqmit.des.model.*;
+import bw.khpi.reqmit.des.repository.*;
 import bw.khpi.reqmit.des.utils.ConnectUtils;
 import bw.khpi.reqmit.des.utils.JSONUtils;
 import bw.khpi.reqmit.des.utils.XMLUtils;
@@ -26,6 +18,8 @@ public class ServerServiceImpl implements ServerService {
 	private ProjectRepository projectRepository = new ProjectRepositoryImpl();
 	
 	private RequirementRepository requirementRepository = new RequirementRepositoryImpl();
+	
+	private FileRepository fileRepository = new FileRepositoryImpl();
 	// -----------------------------
 	// User Repository
 	// -----------------------------
@@ -119,7 +113,7 @@ public class ServerServiceImpl implements ServerService {
 	public Requirement saveRequirement(Requirement requirement) {
 		User user = XMLUtils.loadUser();
 		if (user != null && user.getToken() != null) {
-			String result = requirementRepository.createRequirement(user.getToken(), requirement.getProject_id(), requirement.getName());
+			String result = requirementRepository.createRequirement(user.getToken(), requirement.getProjectId(), requirement.getName());
 			String newToken = ConnectUtils.requestErrors(result);
 			if ("incorrectlogin".equals(newToken)) {
 				XMLUtils.removeUser();
@@ -145,6 +139,21 @@ public class ServerServiceImpl implements ServerService {
 		return null;
 	}
 
+	@Override
+	public ArrayList<Requirement> listAllRequirementsByProject(String projectId) {
+		User user = XMLUtils.loadUser();
+		if (user != null && user.getToken() != null) {
+			String result = requirementRepository.listAllByProjeñt(user.getToken(), projectId);
+			String newToken = ConnectUtils.requestErrors(result);
+			if ("incorrectlogin".equals(newToken)) {
+				XMLUtils.removeUser();
+				return null;
+			}
+			return (ArrayList<Requirement>) JSONUtils.parseToList(result, Requirement.class);
+		}
+		return null;
+	}
+
 	/*@Override
 	public boolean updateRequirement(Requirement requirement) {
 		return false;
@@ -155,4 +164,40 @@ public class ServerServiceImpl implements ServerService {
 		return false;
 	}*/
 
+
+	@Override
+	public void sendEventList(EventStructure list) {
+		
+		String s = JSONUtils.objectToJson(list);
+	}
+
+	@Override
+	public List<File> findByName(File file) {
+		User user = XMLUtils.loadUser();
+		if (user != null && user.getToken() != null) {
+			String result = fileRepository.findByName(user.getToken(),file.getName(), file.getProject_id());
+			String newToken = ConnectUtils.requestErrors(result);
+			if ("incorrectlogin".equals(newToken)) {
+				XMLUtils.removeUser();
+				return null;
+			}
+			return (List<File>) JSONUtils.parseToList(result, File.class);
+		}
+		return null;
+	}
+
+	@Override
+	public File saveFile(File file) {
+		User user = XMLUtils.loadUser();
+		if (user != null && user.getToken() != null) {
+			String result = fileRepository.createFile(user.getToken(), file.getProject_id(), file.getName());
+			String newToken = ConnectUtils.requestErrors(result);
+			if ("incorrectlogin".equals(newToken)) {
+				XMLUtils.removeUser();
+				return null;
+			}
+			return (File)JSONUtils.parseToObject(result, File.class);
+		}
+		return null;
+	}
 }

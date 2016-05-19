@@ -10,4 +10,6 @@ public interface RequirementRepository {
 	public String deleteRequirement(String key, String id);
 
 	public String listAll(String key);
+
+	public String listAllByProjeñt(String key, String projectId);
 }

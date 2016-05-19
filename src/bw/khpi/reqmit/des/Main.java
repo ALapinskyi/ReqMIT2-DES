@@ -1,16 +1,14 @@
 package bw.khpi.reqmit.des;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 
 import bw.khpi.reqmit.des.model.User;
-import bw.khpi.reqmit.des.service.Methods;
-import bw.khpi.reqmit.des.utils.ConnectUtils;
+import bw.khpi.reqmit.des.socket.ConnectionProvider;
+import bw.khpi.reqmit.des.socket.ListenerService;
+import bw.khpi.reqmit.des.socket.SenderService;
 import bw.khpi.reqmit.des.utils.XMLUtils;
 import bw.khpi.reqmit.des.view.LoginViewController;
 import bw.khpi.reqmit.des.view.MainServiceViewController;
@@ -53,6 +51,9 @@ public class Main extends Application {
 		Platform.setImplicitExit(false);
 
 		javax.swing.SwingUtilities.invokeLater(this::addAppToTray);
+
+		ConnectionProvider.setSenderService(new SenderService());
+		ConnectionProvider.setListenerService(new ListenerService());
 
 		if (user == null) {
 			showLoginView();

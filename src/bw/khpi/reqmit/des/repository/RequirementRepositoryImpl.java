@@ -1,5 +1,6 @@
 package bw.khpi.reqmit.des.repository;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,18 @@ public class RequirementRepositoryImpl implements RequirementRepository {
 	@Override
 	public String listAll(String key) {
 		return ConnectUtils.performPostCall(Methods.getRequirementUrl(), new HashMap<>(), "GET", key);
+	}
+
+	@Override
+	public String listAllByProjeñt(String key, String projectId) {
+		Map<String, String> map = new HashMap<>();
+		map.put("projectId", projectId);
+		try {
+			return ConnectUtils.performPostCall(Methods.getRequirementUrl() + ConnectUtils.getPostDataString(map), null, "GET", key);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

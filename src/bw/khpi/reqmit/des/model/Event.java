@@ -1,5 +1,7 @@
 package bw.khpi.reqmit.des.model;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -9,60 +11,77 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Event {
 	
 	private Integer id;
-	private String type;
-	private Integer user_id;
-	private Integer requirement_id;
-	private Integer file_id;
+	private String eventType;
+	private String projectId;
+	private Integer fileId;
 	private String data;
 	
 	public Event(){
 		
 	}
 	
-	public Event(String type, Integer user_id, Integer requirement_id, Integer file_id, String data) {
+	
+
+	public Event( String eventType, String projectId, String data) {
 		super();
-		this.type = type;
-		this.user_id = user_id;
-		this.requirement_id = requirement_id;
-		this.file_id = file_id;
+		this.eventType = eventType;
+		this.projectId = projectId;
 		this.data = data;
 	}
+
+
+
+	public Event(String eventType, String projectId, Integer fileId, String data) {
+		super();
+		this.eventType = eventType;
+		this.projectId = projectId;
+		this.fileId = fileId;
+		this.data = data;
+	}
+
+
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getType() {
-		return type;
+
+	public String getEventType() {
+		return eventType;
 	}
-	public void setType(String type) {
-		this.type = type;
+
+	public void setEventType(String eventType) {
+		this.eventType = eventType;
 	}
-	public Integer getUser_id() {
-		return user_id;
+
+	public String getProjectId() {
+		return projectId;
 	}
-	public void setUser_id(Integer user_id) {
-		this.user_id = user_id;
+
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
 	}
-	public Integer getRequirement_id() {
-		return requirement_id;
+
+	public Integer getFileId() {
+		return fileId;
 	}
-	public void setRequirement_id(Integer requirement_id) {
-		this.requirement_id = requirement_id;
+
+	public void setFileId(Integer fileId) {
+		this.fileId = fileId;
 	}
-	public Integer getFile_id() {
-		return file_id;
-	}
-	public void setFile_id(Integer file_id) {
-		this.file_id = file_id;
-	}
+
 	public String getData() {
 		return data;
 	}
+
 	public void setData(String data) {
 		this.data = data;
 	}
+	
+	
 	
 	
 }

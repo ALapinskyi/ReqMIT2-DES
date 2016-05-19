@@ -9,20 +9,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Requirement {
 	
 	private Integer id;
-	private String project_id;
+	private String projectId;
 	private String name;
 	
 	public Requirement() {
 	}
 	
-	public Requirement(Integer id, String project_id, String name) {
+	public Requirement(Integer id, String projectId, String name) {
 		this.id = id;
-		this.project_id = project_id;
+		this.projectId = projectId;
 		this.name = name;
 	}
 	
-	public Requirement(String project_id, String name) {
-		this.project_id = project_id;
+	public Requirement(String projectId, String name) {
+		this.projectId = projectId;
 		this.name = name;
 	}
 	
@@ -32,11 +32,11 @@ public class Requirement {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getProject_id() {
-		return project_id;
+	public String getProjectId() {
+		return projectId;
 	}
-	public void setProject_id(String project_id) {
-		this.project_id = project_id;
+	public void setProject_id(String projectId) {
+		this.projectId = projectId;
 	}
 	public String getName() {
 		return name;

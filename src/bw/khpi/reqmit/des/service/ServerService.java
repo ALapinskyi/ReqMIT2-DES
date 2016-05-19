@@ -3,10 +3,7 @@ package bw.khpi.reqmit.des.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import bw.khpi.reqmit.des.model.Project;
-import bw.khpi.reqmit.des.model.ProjectList;
-import bw.khpi.reqmit.des.model.Requirement;
-import bw.khpi.reqmit.des.model.User;
+import bw.khpi.reqmit.des.model.*;
 
 public interface ServerService {
 	
@@ -43,8 +40,25 @@ public interface ServerService {
 	public Requirement saveRequirement(Requirement requirement);
 
 	public ArrayList<Requirement> listAllRequirements();
+
+	public ArrayList<Requirement> listAllRequirementsByProject(String projectId);
 	
 	//public boolean updateRequirement(Requirement requirement);
 	
 	//public boolean deleteRequirement(Requirement requirement);
+
+
+	//-----------------------------
+	// Event Repository
+	//-----------------------------
+	
+	public void sendEventList(EventStructure list);
+
+	//-----------------------------
+	// File Repository
+	//-----------------------------
+	
+	public List<File> findByName(File file);
+	
+	public File saveFile(File file);
 }

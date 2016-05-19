@@ -1,11 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <projects>
     <project>
-        <id>244e5168-b44d-402d-94bf-25385419eb2e</id>
-        <name>demchuk</name>
-    </project>
-    <project>
         <id>5b8a5cf5-222c-4290-838f-4865b59a0894</id>
         <name>vadim</name>
+        <requirements>
+            <id>5</id>
+            <projectId>5b8a5cf5-222c-4290-838f-4865b59a0894</projectId>
+            <name>qwe</name>
+        </requirements>
+        <requirements>
+            <id>6</id>
+            <projectId>5b8a5cf5-222c-4290-838f-4865b59a0894</projectId>
+            <name>123</name>
+        </requirements>
+        <requirements>
+            <id>7</id>
+            <projectId>5b8a5cf5-222c-4290-838f-4865b59a0894</projectId>
+            <name>456</name>
+        </requirements>
+        <requirements>
+            <id>8</id>
+            <projectId>5b8a5cf5-222c-4290-838f-4865b59a0894</projectId>
+            <name>asd</name>
+        </requirements>
+        <requirements>
+            <id>9</id>
+            <projectId>5b8a5cf5-222c-4290-838f-4865b59a0894</projectId>
+            <name>asd</name>
+        </requirements>
+    </project>
+    <project>
+        <id>2fca25a5-88ed-4a58-81bb-624119311ee1</id>
+        <name>Example</name>
+        <requirements>
+            <id>10</id>
+            <projectId>2fca25a5-88ed-4a58-81bb-624119311ee1</projectId>
+            <name>qwe</name>
+        </requirements>
+        <requirements>
+            <id>12</id>
+            <projectId>2fca25a5-88ed-4a58-81bb-624119311ee1</projectId>
+            <name>qwe</name>
+        </requirements>
+    </project>
+    <project>
+        <id>244e5168-b44d-402d-94bf-25385419eb2e</id>
+        <name>demchuk</name>
     </project>
 </projects>
