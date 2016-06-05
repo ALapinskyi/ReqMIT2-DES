@@ -52,7 +52,9 @@ public interface ServerService {
 	// Event Repository
 	//-----------------------------
 	
-	public void sendEventList(EventStructure list);
+	public List<Event> sendEventList(List<Event> list);
+
+	public DOI listAllByRequirement(String projectId, String  requirementId);
 
 	//-----------------------------
 	// File Repository

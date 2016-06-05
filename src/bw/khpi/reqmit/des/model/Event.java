@@ -13,16 +13,30 @@ public class Event {
 	private Integer id;
 	private String eventType;
 	private String projectId;
-	private Integer fileId;
-	private String data;
+	private String requirementId;
+	private String fileId;
+	private DataTime data;
 	
 	public Event(){
 		
 	}
 	
 	
+	
 
-	public Event( String eventType, String projectId, String data) {
+	public Event(String eventType, String projectId, String requirementId, String fileId, DataTime data) {
+		super();
+		this.eventType = eventType;
+		this.projectId = projectId;
+		this.requirementId = requirementId;
+		this.fileId = fileId;
+		this.data = data;
+	}
+
+
+
+
+	public Event( String eventType, String projectId, DataTime data) {
 		super();
 		this.eventType = eventType;
 		this.projectId = projectId;
@@ -31,7 +45,7 @@ public class Event {
 
 
 
-	public Event(String eventType, String projectId, Integer fileId, String data) {
+	public Event(String eventType, String projectId, String fileId, DataTime data) {
 		super();
 		this.eventType = eventType;
 		this.projectId = projectId;
@@ -65,22 +79,35 @@ public class Event {
 		this.projectId = projectId;
 	}
 
-	public Integer getFileId() {
+	public String getFileId() {
 		return fileId;
 	}
 
-	public void setFileId(Integer fileId) {
+	public void setFileId(String fileId) {
 		this.fileId = fileId;
 	}
 
-	public String getData() {
+	public DataTime getData() {
 		return data;
 	}
 
-	public void setData(String data) {
+	public void setData(DataTime data) {
 		this.data = data;
 	}
-	
+
+
+
+	public String getRequirementId() {
+		return requirementId;
+	}
+
+
+
+	public void setRequirementId(String requirementId) {
+		this.requirementId = requirementId;
+	}
+
+
 	
 	
 	

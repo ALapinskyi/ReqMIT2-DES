@@ -1,23 +1,36 @@
 package bw.khpi.reqmit.des.view;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.List;
+
 import bw.khpi.reqmit.des.Main;
 import bw.khpi.reqmit.des.component.RequirementsTreeCell;
 import bw.khpi.reqmit.des.component.SelectedTreeItem;
+import bw.khpi.reqmit.des.model.DOI;
+import bw.khpi.reqmit.des.model.DOITable;
+import bw.khpi.reqmit.des.model.Event;
 import bw.khpi.reqmit.des.model.Project;
 import bw.khpi.reqmit.des.model.ProjectList;
 import bw.khpi.reqmit.des.model.Requirement;
 import bw.khpi.reqmit.des.service.ServerService;
 import bw.khpi.reqmit.des.service.ServerServiceImpl;
 import bw.khpi.reqmit.des.utils.XMLUtils;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
 public class MainServiceViewController {
@@ -41,10 +54,22 @@ public class MainServiceViewController {
 	private Button removeProjectButton;
 
 	@FXML
-	private TreeView<Object> projectTree;
+	private Button refreshTableButton;
 
 	@FXML
-	private TableView filesTable;
+	private TreeView projectTree;
+
+	@FXML
+	private TableColumn fileName;
+
+	@FXML
+	private TableColumn eom;
+
+	@FXML
+	private TableColumn tom;
+
+	@FXML
+	private TableView<DOITable> filesTable;
 
 	private ServerService serverRepository = new ServerServiceImpl();
 
@@ -60,9 +85,23 @@ public class MainServiceViewController {
 		projectTree.setCellFactory(new Callback<TreeView<Object>, TreeCell<Object>>() {
 			@Override
 			public TreeCell<Object> call(TreeView<Object> p) {
-				
+
 				return new RequirementsTreeCell();
 			}
+		});
+
+		projectTree.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+
+			@Override
+			public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+				if (newValue != null && ((TreeItem) newValue).getValue() instanceof Requirement) {
+					Requirement req = (Requirement) ((TreeItem) newValue).getValue();
+					DOI events = serverRepository.listAllByRequirement(req.getProjectId(), req.getId());
+
+					initFileTable(events);
+				}
+			}
+
 		});
 	}
 
@@ -84,6 +123,42 @@ public class MainServiceViewController {
 	@FXML
 	public void addRequirementAction(ActionEvent event) {
 		mainApp.openAddRequirement();
+	}
+
+	@FXML
+	public void refreshTableAction(ActionEvent event) {
+		if (((TreeItem) projectTree.getSelectionModel().getSelectedItem()).getValue() instanceof Requirement) {
+			Requirement req = (Requirement) ((TreeItem) projectTree.getSelectionModel().getSelectedItem()).getValue();
+			DOI events = serverRepository.listAllByRequirement(req.getProjectId(), req.getId());
+			initFileTable(events);
+		}
+
+	}
+
+	public void initFileTable(DOI doi) {
+		filesTable.getItems().clear();
+
+		fileName.setCellValueFactory(new PropertyValueFactory<DOI, String>("fileName"));
+
+		eom.setCellValueFactory(new PropertyValueFactory<DOI, String>("eom"));
+
+		tom.setCellValueFactory(new PropertyValueFactory<DOI, String>("tom"));
+
+		List<DOITable> tableData = FXCollections.observableArrayList();
+		for(int i = 0; i < doi.getEom().size(); i++){
+			try{
+				NumberFormat formatter = new DecimalFormat("#0.00");   
+			tableData.add(new DOITable(doi.getEom().get(i).getFileName(), 
+					String.valueOf(formatter.format(doi.getEom().get(i).getDoi())), 
+					String.valueOf(formatter.format(doi.getTom().get(i).getDoi()))));
+			}catch(IndexOutOfBoundsException e){
+				//e.printStackTrace();
+			}
+		}
+		
+		ObservableList<DOITable> data = FXCollections.observableArrayList(tableData);   
+		
+		filesTable.setItems(data);
 	}
 
 	public void refreshList() {

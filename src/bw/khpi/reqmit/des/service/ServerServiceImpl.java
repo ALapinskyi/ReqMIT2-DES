@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.json.JSONObject;
 
+import bw.khpi.reqmit.des.currentInfo.SelectedRequirement;
 import bw.khpi.reqmit.des.model.*;
 import bw.khpi.reqmit.des.repository.*;
 import bw.khpi.reqmit.des.utils.ConnectUtils;
@@ -16,10 +17,12 @@ public class ServerServiceImpl implements ServerService {
 	private UserRepository userRepository = new UserRepositoryImpl();
 
 	private ProjectRepository projectRepository = new ProjectRepositoryImpl();
-	
+
 	private RequirementRepository requirementRepository = new RequirementRepositoryImpl();
-	
+
 	private FileRepository fileRepository = new FileRepositoryImpl();
+
+	private EventRepository eventRepository = new EventRepositoryImpl();
 	// -----------------------------
 	// User Repository
 	// -----------------------------
@@ -46,20 +49,16 @@ public class ServerServiceImpl implements ServerService {
 	public User saveUser(User user) {
 
 		String result = userRepository.createUser(user.getUsername(), user.getPassword());
-		user = (User)JSONUtils.parseToObject(result, User.class);
+		user = (User) JSONUtils.parseToObject(result, User.class);
 		XMLUtils.saveUser(user);
 		return user;
 	}
 
-	/*@Override
-	public boolean updateUser(User user) {
-		return false;
-	}
-
-	@Override
-	public boolean deleteUser(User user) {
-		return false;
-	}*/
+	/*
+	 * @Override public boolean updateUser(User user) { return false; }
+	 * 
+	 * @Override public boolean deleteUser(User user) { return false; }
+	 */
 
 	// -----------------------------
 	// Project Repository
@@ -75,7 +74,7 @@ public class ServerServiceImpl implements ServerService {
 				XMLUtils.removeUser();
 				return null;
 			}
-			return (Project)JSONUtils.parseToObject(result, Project.class);
+			return (Project) JSONUtils.parseToObject(result, Project.class);
 		}
 		return null;
 	}
@@ -95,15 +94,11 @@ public class ServerServiceImpl implements ServerService {
 		return null;
 	}
 
-	/*@Override
-	public boolean updateProject(Project project) {
-		return false;
-	}
-
-	@Override
-	public boolean deleteProject(Project project) {
-		return false;
-	}*/
+	/*
+	 * @Override public boolean updateProject(Project project) { return false; }
+	 * 
+	 * @Override public boolean deleteProject(Project project) { return false; }
+	 */
 
 	// -----------------------------
 	// Requirement Repository
@@ -113,13 +108,14 @@ public class ServerServiceImpl implements ServerService {
 	public Requirement saveRequirement(Requirement requirement) {
 		User user = XMLUtils.loadUser();
 		if (user != null && user.getToken() != null) {
-			String result = requirementRepository.createRequirement(user.getToken(), requirement.getProjectId(), requirement.getName());
+			String result = requirementRepository.createRequirement(user.getToken(), requirement.getProjectId(),
+					requirement.getName());
 			String newToken = ConnectUtils.requestErrors(result);
 			if ("incorrectlogin".equals(newToken)) {
 				XMLUtils.removeUser();
 				return null;
 			}
-			return (Requirement)JSONUtils.parseToObject(result, Requirement.class);
+			return (Requirement) JSONUtils.parseToObject(result, Requirement.class);
 		}
 		return null;
 	}
@@ -154,28 +150,54 @@ public class ServerServiceImpl implements ServerService {
 		return null;
 	}
 
-	/*@Override
-	public boolean updateRequirement(Requirement requirement) {
-		return false;
+	/*
+	 * @Override public boolean updateRequirement(Requirement requirement) {
+	 * return false; }
+	 * 
+	 * @Override public boolean deleteRequirement(Requirement requirement) {
+	 * return false; }
+	 */
+
+	@Override
+	public List<Event> sendEventList(List<Event> list) {
+		if(!list.get(0).getEventType().equals("OPEN")){
+			Event event = new Event("OPEN",list.get(0).getProjectId(), list.get(0).getFileId(), list.get(0).getData());
+			list.add(event);
+		}
+		String json = JSONUtils.objectToJson(list);
+		User user = XMLUtils.loadUser();
+		if (user != null && user.getToken() != null) {
+			String result = eventRepository.sendList(user.getToken(), json);
+			String newToken = ConnectUtils.requestErrors(result);
+			if ("incorrectlogin".equals(newToken)) {
+				XMLUtils.removeUser();
+				return null;
+			}
+			return (List<Event>) JSONUtils.parseToList(result, Event.class);
+		}
+		return null;
 	}
 
 	@Override
-	public boolean deleteRequirement(Requirement requirement) {
-		return false;
-	}*/
-
-
-	@Override
-	public void sendEventList(EventStructure list) {
-		
-		String s = JSONUtils.objectToJson(list);
+	public DOI listAllByRequirement(String projectId, String requirementId) {
+		User user = XMLUtils.loadUser();
+		if (user != null && user.getToken() != null) {
+			String result = eventRepository.listAllByRequirement(user.getToken(), projectId, requirementId);
+			String newToken = ConnectUtils.requestErrors(result);
+			if ("incorrectlogin".equals(newToken)) {
+				XMLUtils.removeUser();
+				return null;
+			}
+			return (DOI) JSONUtils.parseToObject(result, DOI.class);
+		}
+		return null;
 	}
 
 	@Override
 	public List<File> findByName(File file) {
 		User user = XMLUtils.loadUser();
 		if (user != null && user.getToken() != null) {
-			String result = fileRepository.findByName(user.getToken(),file.getName(), file.getProject_id());
+			String result = fileRepository.findByName(user.getToken(), file.getName(), file.getProject_id());
 			String newToken = ConnectUtils.requestErrors(result);
 			if ("incorrectlogin".equals(newToken)) {
 				XMLUtils.removeUser();
@@ -196,7 +218,7 @@ public class ServerServiceImpl implements ServerService {
 				XMLUtils.removeUser();
 				return null;
 			}
-			return (File)JSONUtils.parseToObject(result, File.class);
+			return (File) JSONUtils.parseToObject(result, File.class);
 		}
 		return null;
 	}

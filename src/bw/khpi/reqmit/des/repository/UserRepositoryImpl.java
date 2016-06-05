@@ -1,13 +1,10 @@
 package bw.khpi.reqmit.des.repository;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import bw.khpi.reqmit.des.model.User;
 import bw.khpi.reqmit.des.service.Methods;
 import bw.khpi.reqmit.des.utils.ConnectUtils;
-import bw.khpi.reqmit.des.utils.XMLUtils;
 
 public class UserRepositoryImpl implements UserRepository{
 

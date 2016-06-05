@@ -70,20 +70,27 @@ public class ConnectUtils {
 					response += line;
 				}
 			} else {
-				String line;
-				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-				while ((line = br.readLine()) != null) {
-					response += line;
+				try{
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("ERROR!");
+				alert.setContentText("Please, ñontact your administrator for further actions");
+				alert.showAndWait();
+				return null;
+				}catch(IllegalStateException e){
+					e.printStackTrace();
 				}
-
 			}
 		} catch (ConnectException e) {
+			try{
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("ERROR!");
 			alert.setHeaderText("No connection to the server");
 			alert.setContentText("Please, ñontact your administrator for further actions");
 			alert.showAndWait();
 			return null;
+			}catch(IllegalStateException e1){
+				e1.printStackTrace();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -3,19 +3,13 @@ package bw.khpi.reqmit.des.socket;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.UnknownHostException;
 
 import bw.khpi.reqmit.des.currentInfo.SelectedRequirement;
-import bw.khpi.reqmit.des.model.Event;
 import bw.khpi.reqmit.des.model.EventMap;
-import bw.khpi.reqmit.des.model.EventStructure;
-import bw.khpi.reqmit.des.model.File;
 import bw.khpi.reqmit.des.model.Message;
-import bw.khpi.reqmit.des.service.ServerService;
-import bw.khpi.reqmit.des.service.ServerServiceImpl;
 import bw.khpi.reqmit.des.thread.EventThread;
 import bw.khpi.reqmit.des.thread.FinderThread;
+import bw.khpi.reqmit.des.utils.FormatUtils;
 import bw.khpi.reqmit.des.utils.JSONUtils;
 
 public class ListenerService extends AbstractService implements Runnable {
@@ -43,17 +37,15 @@ public class ListenerService extends AbstractService implements Runnable {
 					message = (String) in.readObject();
 					System.out.println("client>" + message);
 					Message m = (Message) JSONUtils.parseToObject(message, Message.class);
-					if (m.getEventType().equals("OPEN")) {
-						if (EventMap.getUnits().containsKey(m.getFileName())) {
-							System.out.println("CONTAINS");
-						} else {
+					m.setFileName(FormatUtils.convertPath(m.getFileName()));
+					if (SelectedRequirement.getRequirement() != null) {
+						if (m.getEventType().equals("OPEN") || (!EventMap.getUnits().containsKey(m.getFileName())
+								&& !m.getEventType().equals("EDIT"))) {
 							new FinderThread(m);
+						} else if (EventMap.getUnits().containsKey(m.getFileName())) {
+							new EventThread(m);
 						}
-					} else {
-						new EventThread(m);
 					}
-					if (m.equals("bye"))
-						sendMessage("bye");
 				} catch (ClassNotFoundException e) {
 					System.err.println("Data received in unknown format");
 				}

@@ -29,11 +29,19 @@ public abstract class Methods {
         return PROTOCOL + "://" + IP_PORT + FOLDER + "/events?";
     }
 
+    public static String getEventAddUrl(){
+        return PROTOCOL + "://" + IP_PORT + FOLDER + "/events/addAll?";
+    }
+
     public static String getFileUrl(){
         return PROTOCOL + "://" + IP_PORT + FOLDER + "/files?";
     }
 
     public static String getFileFindUrl(){
         return PROTOCOL + "://" + IP_PORT + FOLDER + "/files/find?";
+    }
+
+    public static String getTMUrl(){
+        return PROTOCOL + "://" + IP_PORT + FOLDER + "/tm?";
     }
 }

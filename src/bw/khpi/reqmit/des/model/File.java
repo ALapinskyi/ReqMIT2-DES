@@ -2,28 +2,28 @@ package bw.khpi.reqmit.des.model;
 
 public class File {
 	
-	private Integer id;
-	private String project_id;
+	private String id;
+	private String projectId;
 	private String name;
 	
 	
 	
 	public File(String project_id, String name) {
 		super();
-		this.project_id = project_id;
+		this.projectId = project_id;
 		this.name = name;
 	}
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getProject_id() {
-		return project_id;
+		return projectId;
 	}
 	public void setProject_id(String project_id) {
-		this.project_id = project_id;
+		this.projectId = project_id;
 	}
 	public String getName() {
 		return name;

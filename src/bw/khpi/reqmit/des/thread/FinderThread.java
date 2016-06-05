@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import bw.khpi.reqmit.des.currentInfo.SelectedRequirement;
+import bw.khpi.reqmit.des.model.DataTime;
 import bw.khpi.reqmit.des.model.Event;
 import bw.khpi.reqmit.des.model.EventMap;
 import bw.khpi.reqmit.des.model.EventStructure;
@@ -29,11 +30,13 @@ public class FinderThread implements Runnable {
 			File file = new File(SelectedRequirement.getRequirement().getProjectId(), event.getFileName());
 			List<File> result = serverRepository.findByName(file);
 			
-			if(result.size() == 0){
+			if(result == null ||result.size() == 0){
 				file = serverRepository.saveFile(file);
+			} else {
+				file = result.get(0);
 			}
 			List<Event> events = new  LinkedList<Event>();
-			events.add(new Event(event.getEventType(), SelectedRequirement.getRequirement().getProjectId(), file.getId(), event.getData()));
+			events.add(new Event(event.getEventType(), SelectedRequirement.getRequirement().getProjectId(), SelectedRequirement.getRequirement().getId(), file.getId(), new DataTime(event.getData())));
 			EventMap.getUnits().put(event.getFileName(), new EventStructure(file, events));
 		
 		}

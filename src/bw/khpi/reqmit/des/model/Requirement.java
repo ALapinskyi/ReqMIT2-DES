@@ -8,14 +8,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Requirement {
 	
-	private Integer id;
+	private String id;
 	private String projectId;
 	private String name;
 	
 	public Requirement() {
 	}
 	
-	public Requirement(Integer id, String projectId, String name) {
+	public Requirement(String id, String projectId, String name) {
 		this.id = id;
 		this.projectId = projectId;
 		this.name = name;
@@ -26,10 +26,10 @@ public class Requirement {
 		this.name = name;
 	}
 	
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getProjectId() {
